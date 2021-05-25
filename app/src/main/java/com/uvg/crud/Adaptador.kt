@@ -3,9 +3,11 @@ package com.uvg.crud
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_lista.view.*
 
-class Adaptador : RecyclerView.Adapter<Adaptador.ItemsViewHolder>(){
+class Adaptador(private val clickListener: (Int) -> Unit) : RecyclerView.Adapter<Adaptador.ItemsViewHolder>(){
 
     private var items: MutableList<String> = mutableListOf()
 
@@ -19,8 +21,24 @@ class Adaptador : RecyclerView.Adapter<Adaptador.ItemsViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item= items[position]
+        holder.bind(item, clickListener)
     }
 
-    class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    fun setItem(nuevosItems: MutableList<String>){
+        this.items = nuevosItems
+        notifyDataSetChanged()
+    }
+
+    fun getItem(position : Int): String {
+        return items[position]
+    }
+
+    class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        fun bind(item:String, listener: (Int) -> Unit) = with(itemView){
+            txtTitulo.text = item
+
+            setOnClickListener{listener(adapterPosition)}
+        }
+    }
 }
