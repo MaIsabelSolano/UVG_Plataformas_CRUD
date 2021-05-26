@@ -41,16 +41,14 @@ class MainActivity : AppCompatActivity() {
             items.add("Otro")
             adaptador.setItem(items)
         }
+
     }
 
     fun showItemClick(position: Int){
         val item = adaptador.getItem(position)
         Toast.makeText(this,item,Toast.LENGTH_SHORT).show()
-    }
-
-    fun Destroy(position: Int){
+        adaptador.destroyItem(position)
 
     }
-
 
 }

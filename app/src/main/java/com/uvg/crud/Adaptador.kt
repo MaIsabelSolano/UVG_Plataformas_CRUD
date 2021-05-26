@@ -14,6 +14,8 @@ class Adaptador(private val clickListener: (Int) -> Unit) : RecyclerView.Adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_lista, parent,false)
         return ItemsViewHolder(view)
+
+
     }
 
     override fun getItemCount(): Int {
@@ -34,12 +36,26 @@ class Adaptador(private val clickListener: (Int) -> Unit) : RecyclerView.Adapter
         return items[position]
     }
 
+    fun destroyItem(position: Int){
+        items.removeAt(position)
+        notifyDataSetChanged()
+
+    }
+
+    fun changeItem(position: Int){
+        items[position] = "cambio"
+        notifyDataSetChanged()
+    }
+
 
     class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(item: String, listener: (Int) -> Unit) = with(itemView) {
             txtTitulo.text = item
 
-            setOnClickListener { listener(adapterPosition) }
+            setOnClickListener {
+                listener(adapterPosition)
+
+            }
         }
 
     }
