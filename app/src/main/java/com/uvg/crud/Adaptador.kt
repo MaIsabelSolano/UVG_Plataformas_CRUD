@@ -34,11 +34,13 @@ class Adaptador(private val clickListener: (Int) -> Unit) : RecyclerView.Adapter
         return items[position]
     }
 
+
     class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bind(item:String, listener: (Int) -> Unit) = with(itemView){
+        fun bind(item: String, listener: (Int) -> Unit) = with(itemView) {
             txtTitulo.text = item
 
-            setOnClickListener{listener(adapterPosition)}
+            setOnClickListener { listener(adapterPosition) }
         }
+
     }
 }
